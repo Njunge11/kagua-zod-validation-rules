@@ -148,6 +148,11 @@ export default class MobileNumberValidationSchemaBuilder {
     }
   }
 
+  // Public method to test the errorHandler indirectly
+  public handleErrorWrapper(error: unknown) {
+    this.errorHandler(error);
+  }
+
   /**
    * Builds and returns the final Zod validation schema.
    *
