@@ -68,8 +68,11 @@ describe('MobileNumberValidationSchemaBuilder', () => {
     expect(result.success).toBe(true);
   });
 
-  it('show allow mobile number to be optional when specified', () => {
-    const schema = builder.setMobileNumberField('phoneNumber', false).build();
+  it('should allow mobile number to be optional when specified', () => {
+    const schema = builder
+      .setMobileNumberField('phoneNumber')
+      .setMobileNumberRequired(false)
+      .build();
     const result = schema.safeParse({ countryCode: 'KE' });
     expect(result.success).toBe(true);
   });

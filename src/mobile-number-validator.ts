@@ -40,15 +40,25 @@ export default class MobileNumberValidationSchemaBuilder {
   private customErrorMessages: CustomErrorMessages = {};
 
   /**
+   * Sets whether the mobile number is required.
+   *
+   * @param {boolean} isRequired - Whether the mobile number is required.
+   * @returns {this} The builder instance for method chaining.
+   */
+  setMobileNumberRequired(isRequired: boolean = true) {
+    this.isMobileNumberRequired = isRequired;
+    return this;
+  }
+
+  /**
    * Sets the name of the mobile number field and whether it's required.
    *
    * @param {string} name - The name of the mobile number field.
    * @param {boolean} [isRequired=true] - Whether the mobile number is required.
    * @returns {this} The builder instance for method chaining.
    */
-  setMobileNumberField(name: string, isRequired: boolean = true): this {
+  setMobileNumberField(name: string) {
     this.mobileFieldName = name;
-    this.isMobileNumberRequired = isRequired;
     return this;
   }
 
@@ -58,7 +68,7 @@ export default class MobileNumberValidationSchemaBuilder {
    * @param {string} name - The name of the country code field.
    * @returns {this} The builder instance for method chaining.
    */
-  setCountryCodeField(name: string): this {
+  setCountryCodeField(name: string) {
     this.countryCodeFieldName = name;
     return this;
   }
@@ -69,7 +79,7 @@ export default class MobileNumberValidationSchemaBuilder {
    * @param {CustomErrorMessages} messages - An object containing custom error messages.
    * @returns {this} The builder instance for method chaining.
    */
-  setCustomErrors(messages: CustomErrorMessages): this {
+  setCustomErrors(messages: CustomErrorMessages) {
     this.customErrorMessages = { ...this.customErrorMessages, ...messages };
     return this;
   }
