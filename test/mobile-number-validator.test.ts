@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import MobileNumberValidationSchemaBuilder from '../src/mobile-number-validator';
 import { ZodError } from 'zod';
 
@@ -109,6 +109,21 @@ describe('MobileNumberValidationSchemaBuilder', () => {
         'Custom country code error',
       );
     }
+  });
+
+  it('should call errorHandler when an error is thrown', () => {
+    const errorHandlerSpy = vi.spyOn(builder, 'errorHandler');
+
+    const mockError = new Error('Test error');
+    vi.spyOn(builder, 'validateMobileNumber').mockImplementation(() => {
+      throw mockError;
+    });
+
+    expect(() => builder.build()).toThrow(
+      'An unexpected error occurred during validation schema creation: Test error. Please check the configuration and try again.',
+    );
+
+    expect(errorHandlerSpy).toHaveBeenCalledWith(mockError);
   });
 
   it('should rethrow ZOdError', () => {
